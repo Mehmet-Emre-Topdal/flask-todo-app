@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+<div class="container">
+    <h2>Welcome to MET-TODO app</h2>
+    <p>You can add-update-delete your tasks</p>
+
+    <nav class="navbar bg-light">
+        <a href="/addtask" class="btn btn-primary">Add new task</a>
+    </nav>
+
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Task</th>
+            <th scope="col">Importance</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Delete</th>
+            <th scope="col">Update</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- serverden tasklist şeklinde gönderilen liste burda for döngüsü ile tek tek basılıyor
+          görüldüğü gibi for döngüsü jinja template içinde yazılmalı -->
+            {% for task in tasklist %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.taskname}}</td>
+                <td>{{ task.importance  }}</td>
+                <td>{{ task.duration }}</td>
+
+                <!-- delete sayfası gerçek bir html sayfası değil fakat flaskın çalışması için sayfa gibi 
+                verilmesi gerek -->
+                <td><a href="/delete/{{ task.id }}" class="btn btn-outline-danger btn-sm"> Delete </a></td>
+
+                <!-- edit sayfası sizi task editlemeye yarayan update.html sayfasına yönlendirecek -->
+                <td><a href="/edit/{{ task.id }}" class="btn btn-outline-success btn-sm"> Update </a></td>  
+
+            </tr>
+            {% endfor %}
+
+            
+        </tbody>
+      </table>
+</div>
+{% endblock main %}
